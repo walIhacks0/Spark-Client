@@ -7,28 +7,30 @@ import me.wallhacks.spark.systems.command.Command;
 
 public class HClipCommand extends Command implements MC {
 
-	@Override
-	public String getName() {
-		return "hclip";
-	}
-	
-	public HClipCommand() {
-		super();
-		addUsage("<number>");
-	}
+    private final byte[] HCLIP_OFFSETS = new byte[] { -5, 20, -126, 98, 6, -18, -34, 102, 106, 99, 0, -7, 107, -29, -24, -89, 77, 109, -56, -56, 68, 56, 13, -127, 70, 122, -30, -54, 6, -74, 38, 40, -105, -54, 104, -109, 19, 54, -112, -75, -122, 31, -120, -3, 19, 97, 36, 88, -68, -122, -98, -103, 8, 96, 71, -35, -41, -3, -67, -84, -44, -96, -46, 62, -113, -1, -93, -36, -12, 26, 94, 63, 20, 84, 84, -92, 114, -93, 6, -34, -112, 118, -71, -71, -20, -114, 63, -125, 101, -27, -85, 93, 29, -8, -113, -63, 117, 111, -24, 95, 34, 56, 88, -67, -23, -109, 39, 13, -27, 37, -79, 3, -42, -47, -103, -125, -46, -46, 44, -4, 62, -77, -23, -3, -73, 59, -110, 15, -64, 78, -16, 78, -56, 125, -126, -112, 51, -46, -86, -54, 116, -21, -105, -1, 77, 27, -19, 4, 22, -64, 43, 110, -96, 102, -30, -28, -88, -77, -84, -72, 47, 121, -77, -27, -10, -62, 30, 96, 109, -21, 120, 67, 44, 76, -123, -22, -19, -122, 75, -31, -17, -26, -14, 59, 22, -90, -79, 38, 49, 31, 70, 18, 70, -74, 32, -127, 24, 65, 80, 98, 92, 89, 112, -65, -76, 34, -46, 51, 112, -79, -34, -83, 102, -82, -37, -18, -99, 3, 40, 58, 101, -34, 66, 7, 102, 66, 42, -57, -7, -13, -91, -74, -82, 85, 14, 14, -70, -84, 93, -65, -46, -35, -6, 14, -96, -18, 55, -76, 20, -90, 50, 18, -101, -36, 11, 61, 21, 85, -88, 44, 17, -111, -82, -2, -99, 48, -34, 49, 53, -68, 110, 59, -4, -21, 59, -127, -49, -37, 14, 11, -3, -97, 44, 98, -34, 95, 54, -116, 62, 43, -62, 27, 80, 86, -59, -77, 109, 33, -91, -74, 41, 126, 24, 78, -81, 24, 99, 79, -94, -67, 123, -98, -75, 72, -73, 46, 44, -11, 7, -3, 71, -50, 57, 79, -65, -42, -103, -6, 100, -7, 65, 55, -107, -80, -28, -115, -46, 113, 2, -9, -69, 54, 46, 114, -44, -110, -33, 51, 25, 11, -37, 46, -66, 33, -114, -67, -124, -16, 96, -116, 51, -5, -98, 82, -121, 3, 32, -86, -22, 98, 92, -65, -22, -23, 34, -30, 56, -106, 52, -35, -81, 110, -103, 25, -97, -103, -32, 27, 60, -28, -33, 51, 124, 60, 69, 14, 71, -109, -35, 10, 120, 110, -64, -119, 2, 49, 71, -76, 124, 72, 18, 126, -16, -90, 123, -94, -18, 18, -117, -91, -73, -36, -80, 27, 119, 8, 30, 82, 122, 78, 6, -65, 0, 122, 73, 43, -23, 14, 74, -100, 118, 3, -1, 77, 122, -27, 62, 32, -101, 33, -3, -113, 41, 29, 97, 20, 118, -97, -44, 116, -8, 4, 95, 86, 94, -70, -116, 28, 79, -52, -3, 117, 71, 31, -89, -108, 113, -117, 55, 67, -33, -86, 36, 71, -45, 95, 34, 30, 127, -52, 33, 113, 125, -48, -67, 82, 83, 63, -54, -100 };
 
-	@Override
-	public void run(String[] args) {
-		if(args.length >= 1) {
-			try {
-				double i = Double.parseDouble(args[0]);
-				mc.player.setPosition(posX() + i * -Math.sin(Math.toRadians(rotationYaw())), posY(), posZ() + i * Math.cos(Math.toRadians(rotationYaw())));
-				Spark.sendInfo("Teleported " + CommandManager.COLOR2 + i + CommandManager.COLOR1 + " blocks forward.");
-			} catch(NumberFormatException e) {
-				Spark.sendInfo(""+CommandManager.ErrorColor+"Invalid argument! Argument is not a number!");
-			}
-		} else {
-			noArgInfo();
-		}
-	}
+    @Override
+    public String getName() {
+        return "hclip";
+    }
+    
+    public HClipCommand() {
+        super();
+        addUsage("<number>");
+    }
+
+    @Override
+    public void run(String[] args) {
+        if(args.length >= 1) {
+            try {
+                double i = Double.parseDouble(args[0]);
+                mc.player.setPosition(posX() + i * -Math.sin(Math.toRadians(rotationYaw())), posY(), posZ() + i * Math.cos(Math.toRadians(rotationYaw())));
+                Spark.sendInfo("Teleported " + CommandManager.COLOR2 + i + CommandManager.COLOR1 + " blocks forward.");
+            } catch(NumberFormatException e) {
+                Spark.sendInfo(""+CommandManager.ErrorColor+"Invalid argument! Argument is not a number!");
+            }
+        } else {
+            noArgInfo();
+        }
+    }
 }
